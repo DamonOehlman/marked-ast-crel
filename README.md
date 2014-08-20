@@ -11,6 +11,12 @@ doing any nasty `innerHTML` like things...
 
 ## Example Usage
 
+Simple example:
+
+```
+npm run simple
+```
+
 ```js
 var marked = require('marked-ast');
 var crel = require('marked-ast-crel');
@@ -20,6 +26,26 @@ function append(el) {
 }
 
 marked.parse('Some **test** [content](http://www.google.com)').map(crel).forEach(append);
+
+```
+
+A little more complex (uses `brfs`):
+
+```
+npm run complex
+```
+
+```js
+var fs = require('fs');
+var marked = require('marked-ast');
+var crel = require('marked-ast-crel');
+var content = fs.readFileSync(__dirname + '/complex.md', 'utf8');
+
+function append(el) {
+  document.body.appendChild(el);
+}
+
+marked.parse(content).map(crel).forEach(append);
 
 ```
 

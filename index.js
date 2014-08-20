@@ -24,7 +24,21 @@ var IGNORE_KEYS = ['type', 'text', 'code'];
 
   ## Example Usage
 
+  Simple example:
+
+  ```
+  npm run simple
+  ```
+
   <<< examples/simple.js
+
+  A little more complex (uses `brfs`):
+
+  ```
+  npm run complex
+  ```
+
+  <<< examples/complex.js
 
 **/
 var createNode = module.exports = function(node) {
