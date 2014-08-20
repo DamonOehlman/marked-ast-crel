@@ -1,13 +1,26 @@
 var crel = require('crel');
+var languageMappings = {
+  js: 'javascript'
+};
+
 var lookup = {
   paragraph: 'p',
   link: 'a',
+  codeblock: 'code',
+  codespan: 'code',
+
   heading: function(node, attr, children) {
     return 'h' + node.level
   },
 
   code: function(node, attr, children) {
-    children.push(node.code);
+    var lang = node.lang || '';
+
+    children.push({
+      class: 'hljs' + (lang ? (' ' + (languageMappings[lang] || lang)) : ''),
+      type: 'codeblock',
+      text: node.code
+    });
 
     return 'pre';
   }
