@@ -1,0 +1,30 @@
+{
+  "name": "marked-ast-crel",
+  "version": "0.0.0",
+  "description": "Using the AST generated my marked-ast create appropriate HTML elements with crel",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+    "gendocs": "gendocs > README.md"
+  },
+  "stability": "experimental",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DamonOehlman/marked-ast-crel.git"
+  },
+  "keywords": [
+    "marked",
+    "ast",
+    "crel",
+    "transform"
+  ],
+  "author": "Damon Oehlman <damon.oehlman@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DamonOehlman/marked-ast-crel/issues"
+  },
+  "homepage": "https://github.com/DamonOehlman/marked-ast-crel",
+  "dependencies": {
+    "crel": "^1.1.2"
+  }
+}
