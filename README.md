@@ -19,13 +19,13 @@ npm run simple
 
 ```js
 var marked = require('marked-ast');
-var crel = require('marked-ast-crel');
+var markedCrel = require('marked-ast-crel');
 
 function append(el) {
   document.body.appendChild(el);
 }
 
-marked.parse('Some **test** [content](http://www.google.com)').map(crel).forEach(append);
+marked.parse('Some **test** [content](http://www.google.com)').map(markedCrel).forEach(append);
 
 ```
 
@@ -38,14 +38,27 @@ npm run complex
 ```js
 var fs = require('fs');
 var marked = require('marked-ast');
-var crel = require('marked-ast-crel');
+var hljs = require('highlight.js');
+var qsa = require('fdom/qsa');
+var crel = require('crel');
+var markedCrel = require('marked-ast-crel');
 var content = fs.readFileSync(__dirname + '/complex.md', 'utf8');
 
 function append(el) {
   document.body.appendChild(el);
 }
 
-marked.parse(content).map(crel).forEach(append);
+document.body.appendChild(crel('link', {
+  rel: 'stylesheet',
+  href: 'https://highlightjs.org/static/styles/default.css'
+}));
+
+marked.parse(content).map(markedCrel).forEach(append);
+
+qsa('pre code').forEach(function(el) {
+  hljs.highlightBlock(el);
+});
+
 
 ```
 
