@@ -1,4 +1,5 @@
 var crel = require('crel');
+var entities = require('entities');
 var languageMappings = {
   js: 'javascript'
 };
@@ -71,12 +72,12 @@ var createNode = module.exports = function(node) {
 
   // if we have a string for the node, pass through
   if (typeof node == 'string' || (node instanceof String)) {
-    return node;
+    return entities.decodeHTML(node);
   }
 
   // if we have string node text, then encapsulate as an array
   if (typeof node.text == 'string' || (node.text instanceof String)) {
-    node.text = [ node.text ];
+    node.text = [ entities.decodeHTML(node.text) ];
   }
 
   Object.keys(node).forEach(function(key) {

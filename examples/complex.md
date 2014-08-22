@@ -28,7 +28,7 @@ The following items are important:
 Aditionally, we should ensure we care for the following:
 
 - rivers
-  - short
+  - "short"
   - long
 
 - lakes
