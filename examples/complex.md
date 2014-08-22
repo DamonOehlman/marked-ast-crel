@@ -18,6 +18,23 @@ Baseline RES memory usage of the node repl on my machine is about `8Mb`:
 
 ---
 
+The following items are important:
+
+1. A Bear
+2. Squirrels
+
+---
+
+Aditionally, we should ensure we care for the following:
+
+- rivers
+  - short
+  - long
+
+- lakes
+
+---
+
 If I was to read the `buildings.json` file into memory by simply doing the following:
 
 [`require-json.js`](examples/streams/require-json.js)

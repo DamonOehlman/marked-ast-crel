@@ -8,6 +8,15 @@ var lookup = {
   link: 'a',
   codeblock: 'code',
   codespan: 'code',
+  listitem: 'li',
+
+  list: function(node, attr, children) {
+    node.body.forEach(function(item) {
+      children.push(item);
+    });
+
+    return node.ordered ? 'ol' : 'ul';
+  },
 
   heading: function(node, attr, children) {
     return 'h' + node.level
