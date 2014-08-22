@@ -36,7 +36,7 @@ var lookup = {
   }
 };
 
-var IGNORE_KEYS = ['type', 'text', 'code'];
+var IGNORE_KEYS = ['type', 'text', 'code', 'body', 'ordered' ];
 
 /**
   # marked-ast-crel
