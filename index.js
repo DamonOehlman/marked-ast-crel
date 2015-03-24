@@ -11,6 +11,12 @@ var lookup = {
   codespan: 'code',
   listitem: 'li',
 
+  blockquote: function(node, attr, children) {
+    node.quote.forEach(function(item) {
+      children.push(item);
+    });
+  },
+
   list: function(node, attr, children) {
     node.body.forEach(function(item) {
       children.push(item);
@@ -96,7 +102,7 @@ var createNode = module.exports = function(node) {
 
   // if the tagName is a function, then run it to get the actual tagName
   if (typeof tagName == 'function') {
-    tagName = tagName(node, attr, children);
+    tagName = tagName(node, attr, children) || node.type;
   }
 
   return crel.apply(null, [tagName, attr].concat(children.map(createNode)));
