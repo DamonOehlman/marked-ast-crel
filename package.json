@@ -32,8 +32,8 @@
   },
   "devDependencies": {
     "brfs": "^1.2.0",
-    "fdom": "^0.8.0",
-    "highlight.js": "^8.1.0",
-    "marked-ast": "^0.1.0"
+    "fdom": "^1.2.0",
+    "highlight.js": "^9.8.0",
+    "marked-ast": "^0.3.0"
   }
 }
