@@ -12,7 +12,7 @@ function append(el) {
 
 document.body.appendChild(crel('link', {
   rel: 'stylesheet',
-  href: 'https://highlightjs.org/static/styles/default.css'
+  href: 'https://highlightjs.org/static/demo/styles/default.css'
 }));
 
 marked.parse(content).map(markedCrel).forEach(append);
