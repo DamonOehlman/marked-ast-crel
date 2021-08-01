@@ -4,7 +4,7 @@
   "description": "Using the AST generated my marked-ast create appropriate HTML elements with crel",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "browserify test/all.js | testling",
     "gendocs": "gendocs > README.md",
     "simple": "beefy examples/simple.js",
     "complex": "beefy examples/complex.js -- -t brfs"
@@ -32,8 +32,14 @@
   },
   "devDependencies": {
     "brfs": "^2.0.2",
+    "browserify": "^17.0.0",
+    "eslint": "^7.32.0",
     "fdom": "^1.2.0",
     "highlight.js": "^11.1.0",
-    "marked-ast": "^0.3.0"
+    "marked-ast": "^0.3.0",
+    "playwright-test": "^7.0.2",
+    "prettier": "^2.3.2",
+    "tape": "^5.3.0",
+    "testling": "^1.7.3"
   }
 }

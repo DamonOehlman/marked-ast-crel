@@ -51,6 +51,12 @@ node --trace-gc --expose-gc stream-json.js
 
 ---
 
+## Test Image
+
+![](https://images.unsplash.com/photo-1627680344745-39619fc10f84)
+
+---
+
 # LevelDB Love
 
 ---
