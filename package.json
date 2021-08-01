@@ -27,13 +27,13 @@
   },
   "homepage": "https://github.com/DamonOehlman/marked-ast-crel",
   "dependencies": {
-    "crel": "^3.0.0",
-    "entities": "^1.1.1"
+    "crel": "^4.2.1",
+    "entities": "^2.2.0"
   },
   "devDependencies": {
-    "brfs": "^1.2.0",
+    "brfs": "^2.0.2",
     "fdom": "^1.2.0",
-    "highlight.js": "^9.8.0",
+    "highlight.js": "^11.1.0",
     "marked-ast": "^0.3.0"
   }
 }
