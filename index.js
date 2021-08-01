@@ -1,48 +1,55 @@
-var crel = require('crel');
-var entities = require('entities');
-var languageMappings = {
-  js: 'javascript'
+const crel = require('crel');
+const entities = require('entities');
+const languageMappings = {
+  js: 'javascript',
 };
 
-var lookup = {
+// lookup mappings and functions
+// NOTE: the functions mutate the attr and children argument values
+const lookup = {
   paragraph: 'p',
   link: 'a',
   codeblock: 'code',
   codespan: 'code',
   listitem: 'li',
 
-  blockquote: function(node, attr, children) {
-    node.quote.forEach(function(item) {
+  image: (node, attr) => {
+    const { href } = node;
+    delete attr['href'];
+    attr.src = href;
+
+    return 'img';
+  },
+
+  blockquote: (node, attr, children) => {
+    node.quote.forEach(function (item) {
       children.push(item);
     });
   },
 
-  list: function(node, attr, children) {
-    node.body.forEach(function(item) {
+  list: (node, attr, children) => {
+    node.body.forEach(function (item) {
       children.push(item);
     });
 
     return node.ordered ? 'ol' : 'ul';
   },
 
-  heading: function(node, attr, children) {
-    return 'h' + node.level
-  },
+  heading: node => `h${node.level}`,
 
-  code: function(node, attr, children) {
-    var lang = node.lang || '';
-
+  code: (node, attr, children) => {
+    const lang = node.lang || '';
     children.push({
-      class: 'hljs' + (lang ? (' ' + (languageMappings[lang] || lang)) : ''),
+      class: 'hljs' + (lang ? ' ' + (languageMappings[lang] || lang) : ''),
       type: 'codeblock',
-      text: node.code
+      text: node.code,
     });
 
     return 'pre';
-  }
+  },
 };
 
-var IGNORE_KEYS = ['type', 'text', 'code', 'body', 'ordered' ];
+const IGNORE_KEYS = ['type', 'text', 'code', 'body', 'ordered'];
 
 /**
   # marked-ast-crel
@@ -70,40 +77,41 @@ var IGNORE_KEYS = ['type', 'text', 'code', 'body', 'ordered' ];
   <<< examples/complex.js
 
 **/
-var createNode = module.exports = function(node) {
-  var attr = {};
-  var keys;
-  var tagName;
-  var children;
+const createNode = input => {
+  let attr = {};
+
+  if (Array.isArray(input)) {
+    return input.map(createNode);
+  }
 
   // if we have a string for the node, pass through
-  if (typeof node == 'string' || (node instanceof String)) {
-    return entities.decodeHTML(node);
+  if (typeof input == 'string' || input instanceof String) {
+    return entities.decodeHTML(input);
   }
 
   // if we have string node text, then encapsulate as an array
-  if (typeof node.text == 'string' || (node.text instanceof String)) {
-    node.text = [ entities.decodeHTML(node.text) ];
+  if (typeof input.text == 'string' || input.text instanceof String) {
+    input.text = [entities.decodeHTML(input.text)];
   }
 
-  Object.keys(node).forEach(function(key) {
+  Object.keys(input).forEach(key => {
     if (IGNORE_KEYS.indexOf(key) >= 0) {
       return;
     }
 
-    // if assigned, copy
-    if (node[key]) {
-      attr[key] = node[key];
+    if (input[key]) {
+      attr[key] = input[key];
     }
-  })
+  });
 
-  tagName = lookup[node.type] || node.type;
-  children = node.text || [];
+  const children = input.text || [];
 
-  // if the tagName is a function, then run it to get the actual tagName
+  let tagName = lookup[input.type] || input.type;
   if (typeof tagName == 'function') {
-    tagName = tagName(node, attr, children) || node.type;
+    tagName = tagName(input, attr, children) || input.type;
   }
 
   return crel.apply(null, [tagName, attr].concat(children.map(createNode)));
 };
+
+module.exports = createNode;
